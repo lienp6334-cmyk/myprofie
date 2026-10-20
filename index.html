@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09090d">
+<title>WusBaoNam — Personal Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090d;--panel:#111116;--card:#17171e;--card2:#1d1d26;--line:#2a2a35;--text:#f5f5f7;--muted:#a2a2b1;--pink:#fb4774;--purple:#a855f7;--green:#4ade80;--grad:linear-gradient(135deg,#fb4774,#a855f7);--shadow:0 18px 55px #0005}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 15% 10%,#fb477414,transparent 38%),radial-gradient(ellipse at 85% 75%,#a855f714,transparent 42%)}
+button,input,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}button{color:inherit}a{color:inherit}
+.layout{display:grid;grid-template-columns:238px minmax(0,1fr) 300px;max-width:1800px;margin:auto;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;background:#111116dc;border-right:1px solid var(--line);padding:26px 17px;display:flex;flex-direction:column;backdrop-filter:blur(18px);z-index:10}
+.logo{font-family:"Dancing Script",cursive;font-size:2rem;text-decoration:none;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin:2px 9px 38px;white-space:nowrap}
+.logo:before{content:"👑";font-family:system-ui;font-size:1.25rem;margin-right:8px}
+.nav-label{font-size:.68rem;color:#777787;text-transform:uppercase;letter-spacing:1.5px;margin:0 12px 12px}
+.nav{display:grid;gap:5px}
+.nav a{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--muted);padding:12px 13px;border-radius:11px;font-size:.9rem;transition:.2s}
+.nav a:hover,.nav a.active{color:#fff;background:#fb477417}
+.nav a.active{box-shadow:inset 3px 0 var(--pink)}
+.nav a span{width:21px;text-align:center;font-size:1.05rem}
+.sidebar-bottom{margin-top:auto;padding:15px 13px;border:1px solid var(--line);border-radius:14px;background:#ffffff04}
+.sidebar-bottom p{font-size:.82rem;color:var(--muted);line-height:1.7}
+.signature{font-family:"Dancing Script",cursive;color:var(--pink);font-size:1.25rem;margin-top:8px}
+.main{min-width:0;padding:26px;display:flex;flex-direction:column;gap:24px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eyebrow{color:var(--muted);font-size:.78rem;letter-spacing:.4px}
+.topbar h2{font-size:1.2rem;margin-top:5px}
+.status{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#ffffff05;border-radius:999px;padding:9px 12px;font-size:.75rem;color:var(--muted);white-space:nowrap}
+.status:before{content:"";width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px #4ade8077}
+.card{background:linear-gradient(145deg,#191920f5,#121217f5);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.cover{height:190px;position:relative;overflow:hidden;background:linear-gradient(115deg,#2b1124,#201439 55%,#10101a)}
+.cover img{width:100%;height:100%;object-fit:cover;opacity:.56}
+.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#09090d9c,transparent 80%),linear-gradient(0deg,#09090d90,transparent 70%)}
+.cover-copy{position:absolute;z-index:1;left:25px;top:25px;font-family:"Dancing Script",cursive;font-size:clamp(1.6rem,3vw,2.35rem);line-height:1.05;transform:rotate(-4deg);text-shadow:0 5px 20px #fb477455}
+.cover-badge{position:absolute;right:18px;top:17px;z-index:1;padding:8px 11px;border:1px solid #ffffff30;background:#09090d66;border-radius:999px;font-size:.72rem;backdrop-filter:blur(8px)}
+.profile-body{padding:0 25px 20px}
+.profile-row{display:flex;align-items:flex-end;gap:18px;margin-top:-46px;position:relative;z-index:2}
+.avatar-wrap{width:106px;height:106px;flex:none;position:relative;cursor:pointer}
+.avatar{width:100%;height:100%;border-radius:50%;border:4px solid #191920;object-fit:cover;background:#24242d;box-shadow:0 0 0 1px #fb47745c,0 8px 25px #0007}
+.avatar-edit{position:absolute;right:0;bottom:3px;width:29px;height:29px;border-radius:50%;border:2px solid #191920;background:var(--grad);display:grid;place-items:center;font-size:.8rem}
+.profile-details{flex:1;min-width:0;padding:0 0 7px}
+.name-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.name-line h1{font-size:clamp(1.25rem,2vw,1.75rem);letter-spacing:-.7px}
+.verified{color:#60a5fa;font-size:1rem}
+.handle{font-size:.83rem;color:var(--muted);margin-top:5px}
+.bio{font-size:.88rem;color:#c0c0cc;line-height:1.65;margin:12px 0}
+.tags{display:flex;gap:7px;flex-wrap:wrap}
+.tag{font-size:.72rem;border:1px solid var(--line);background:#ffffff05;border-radius:999px;padding:6px 10px;color:#d6d6df}
+.profile-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding-bottom:8px}
+.btn{border:1px solid var(--line);background:#ffffff06;color:var(--text);text-decoration:none;border-radius:11px;padding:10px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.82rem;font-weight:600;cursor:pointer;transition:transform .2s,border-color .2s,background .2s}
+.btn:hover{transform:translateY(-2px);border-color:#fb477477}
+.btn-primary{border:0;background:var(--grad);box-shadow:0 8px 25px #fb477426}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:22px;border-top:1px solid var(--line)}
+.stat{text-align:center;padding:17px 6px 2px;border-right:1px solid var(--line)}
+.stat:last-child{border:0}
+.stat strong{display:block;font-size:1.15rem}
+.stat span{font-size:.76rem;color:var(--muted);display:block;margin-top:5px}
+.section{scroll-margin-top:20px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:14px}
+.section-head h2{font-size:1.12rem;letter-spacing:-.3px}
+.section-head p{color:var(--muted);font-size:.78rem;margin-top:5px}
+.text-link{border:0;background:none;color:#f68ab0;font-size:.8rem;cursor:pointer;text-decoration:none;white-space:nowrap}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.product{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;transition:.25s;min-width:0}
+.product:hover{transform:translateY(-4px);border-color:#fb477477;box-shadow:0 12px 30px #0004}
+.product-image{height:125px;position:relative;background:#252531;overflow:hidden}
+.product-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.product:hover .product-image img{transform:scale(1.06)}
+.product-icon{position:absolute;bottom:10px;left:11px;background:#111116dd;border:1px solid #ffffff25;border-radius:9px;width:37px;height:37px;display:grid;place-items:center;font-size:1.15rem;backdrop-filter:blur(10px)}
+.product-content{padding:15px}
+.product-content h3{font-size:.91rem;margin-bottom:8px}
+.product-content p{font-size:.77rem;color:var(--muted);line-height:1.6;min-height:49px;margin-bottom:13px}
+.product-content .btn{width:100%;padding:9px;font-size:.77rem}
+.inbox{display:grid;grid-template-columns:1fr 1.1fr;gap:18px;padding:20px}
+.inbox-intro{border:1px solid #fb477422;background:linear-gradient(140deg,#fb477410,#a855f70a);border-radius:15px;padding:20px;display:flex;flex-direction:column;justify-content:center}
+.inbox-intro .big-icon{font-size:1.5rem;margin-bottom:13px}
+.inbox-intro h3{font-size:1.05rem;line-height:1.4;margin-bottom:9px}
+.inbox-intro p{font-size:.82rem;line-height:1.7;color:var(--muted)}
+.benefits{list-style:none;margin-top:15px;display:grid;gap:8px;font-size:.78rem;color:#c5c5d0}
+.benefits li:before{content:"✓";color:var(--green);margin-right:9px}
+.form{display:flex;flex-direction:column;gap:11px;justify-content:center}
+.field label{display:block;color:var(--muted);font-size:.75rem;margin:0 0 7px 3px}
+.field input,.field textarea{width:100%;background:#0d0d12;border:1px solid var(--line);border-radius:11px;padding:12px 13px;color:var(--text);outline:none;font-size:.84rem;transition:border-color .2s}
+.field input:focus,.field textarea:focus{border-color:var(--pink)}
+.field textarea{resize:vertical;min-height:95px}
+.form-note{color:var(--muted);font-size:.72rem;line-height:1.5}
+.right{position:sticky;top:0;height:100vh;overflow:auto;background:#111116c9;border-left:1px solid var(--line);padding:25px 17px;display:flex;flex-direction:column;gap:17px;backdrop-filter:blur(18px)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:16px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:15px}
+.panel-head h3{font-size:.9rem}
+.mini-label{font-size:.68rem;color:var(--muted)}
+.now-playing{display:flex;gap:12px;align-items:center}
+.album{width:66px;height:66px;object-fit:cover;border-radius:11px;background:#272733;flex:none}
+.track-info{min-width:0}
+.track-info h4{font-size:.84rem;overflow-wrap:anywhere;line-height:1.4}
+.track-info p{font-size:.73rem;color:var(--muted);margin-top:5px}
+.track-info .playing-state{font-size:.68rem;color:#fb82a1;margin-top:7px}
+.progress-wrap{margin-top:17px}
+.progress{width:100%;height:5px;accent-color:var(--pink);cursor:pointer;display:block}
+.times{display:flex;justify-content:space-between;color:var(--muted);font-size:.67rem;margin-top:7px}
+.controls{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:15px}
+.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:0;background:transparent;color:#c6c6d2;cursor:pointer;border-radius:9px;font-size:1rem}
+.icon-btn:hover{background:#ffffff0c;color:#fff}
+.play-btn{width:43px;height:43px;border-radius:50%;background:#fff;color:#111;border:0;display:grid;place-items:center;font-size:1.05rem;cursor:pointer;box-shadow:0 5px 18px #0004}
+.volume-row{display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--muted);font-size:.8rem}
+.volume-row input{width:100%;accent-color:var(--pink)}
+.playlist{display:grid;gap:6px;margin-top:14px}
+.song{width:100%;display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;border:1px solid transparent;background:transparent;text-align:left;cursor:pointer}
+.song:hover,.song.active{background:#fb477410;border-color:#fb47742a}
+.song img{width:38px;height:38px;object-fit:cover;border-radius:8px;flex:none}
+.song-meta{min-width:0;flex:1}
+.song-meta strong{font-size:.74rem;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.song-meta span{font-size:.68rem;color:var(--muted);display:block;margin-top:4px}
+.song-mark{color:var(--pink);font-size:.75rem}
+.upload-tabs{display:flex;padding:4px;border-radius:10px;background:#0d0d12;margin-bottom:13px;gap:4px}
+.tab{flex:1;padding:9px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:.76rem;cursor:pointer}
+.tab.active{background:var(--grad);color:white}
+.upload-box{display:block;text-align:center;border:1px dashed #444452;border-radius:12px;padding:20px 10px;cursor:pointer;transition:.2s}
+.upload-box:hover{border-color:var(--pink);background:#fb477408}
+.upload-box .upload-icon{font-size:1.6rem;margin-bottom:9px}
+.upload-box strong{display:block;font-size:.79rem;margin-bottom:6px}
+.upload-box span{font-size:.68rem;color:var(--muted);line-height:1.5}
+.upload-box input{display:none}
+.upload-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.upload-preview img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:pointer}
+.upload-preview audio{width:100%;grid-column:1/-1}
+.footer{color:#777785;text-align:center;font-size:.72rem;padding:5px 0 15px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#24242d;border:1px solid #444451;border-radius:12px;padding:12px 16px;font-size:.82rem;box-shadow:var(--shadow);z-index:100;transition:.25s;max-width:calc(100% - 30px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;background:#000b;backdrop-filter:blur(9px);display:none;place-items:center;padding:20px;z-index:90}
+.modal.open{display:grid}
+.modal-card{width:min(520px,100%);background:#17171f;border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:var(--shadow);animation:pop .2s ease}
+.modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.modal-top h3{font-size:1.1rem}
+.close-modal{border:1px solid var(--line);background:#ffffff08;border-radius:9px;width:34px;height:34px;cursor:pointer}
+.modal-card p{color:#c3c3cf;font-size:.86rem;line-height:1.8;white-space:pre-line}
+.modal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.lightbox{position:fixed;inset:0;background:#000e;z-index:95;display:none;place-items:center;padding:20px;cursor:zoom-out}
+.lightbox.open{display:grid}
+.lightbox img{max-width:min(90vw,800px);max-height:85vh;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
+.mobile-nav{display:none}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@media(max-width:1250px){.layout{grid-template-columns:215px minmax(0,1fr)}.right{display:none}.main{padding:22px}.products{gap:10px}.product-image{height:115px}}
+@media(max-width:850px){.layout{display:block}.sidebar{display:none}.main{padding:16px 14px 90px;gap:19px}.topbar{padding:2px 3px}.cover{height:155px}.profile-body{padding:0 16px 17px}.profile-row{gap:13px}.avatar-wrap{width:84px;height:84px;margin-top:7px}.profile-actions{padding-bottom:0}.bio{font-size:.82rem}.products{grid-template-columns:repeat(2,minmax(0,1fr))}.inbox{grid-template-columns:1fr;padding:13px;gap:12px}.inbox-intro{padding:17px}.mobile-nav{position:fixed;z-index:30;bottom:10px;left:10px;right:10px;display:flex;justify-content:space-around;gap:3px;padding:8px;background:#17171feF;border:1px solid #ffffff20;border-radius:16px;backdrop-filter:blur(18px);box-shadow:0 12px 40px #0008}.mobile-nav a{flex:1;text-decoration:none;text-align:center;color:var(--muted);font-size:.65rem;padding:6px 2px;border-radius:9px}.mobile-nav a span{display:block;font-size:1.05rem;margin-bottom:4px}.mobile-nav a.active{color:#ff80a3;background:#fb477416}}
+@media(max-width:520px){.main{padding:12px 10px 88px}.topbar h2{font-size:1.05rem}.status{font-size:.67rem;padding:8px}.cover{height:135px}.cover-copy{left:17px;top:18px}.cover-badge{right:10px;top:10px;font-size:.63rem}.profile-row{align-items:center;flex-wrap:wrap;margin-top:-40px}.avatar-wrap{width:78px;height:78px}.profile-details{flex-basis:calc(100% - 100px);padding-top:39px}.name-line h1{font-size:1.22rem}.handle{font-size:.76rem}.profile-actions{width:100%;padding-top:3px}.profile-actions .btn{flex:1}.bio{margin:11px 0}.tag{font-size:.68rem;padding:5px 8px}.stats{margin-top:18px}.stat strong{font-size:1rem}.stat span{font-size:.68rem}.products{grid-template-columns:1fr;gap:11px}.product{display:grid;grid-template-columns:115px minmax(0,1fr)}.product-image{height:100%;min-height:150px}.product-content{padding:13px}.product-content p{min-height:0;margin-bottom:12px}.product-icon{left:9px;bottom:9px}.section-head h2{font-size:1rem}.section-head p{font-size:.72rem}.section-head{align-items:center}.inbox-intro h3{font-size:1rem}.footer{line-height:1.7}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <a class="logo" href="#home">WusBaoNam</a>
+    <div class="nav-label">Không gian cá nhân</div>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a class="active" href="#home"><span>⌂</span> Trang chủ</a>
+      <a href="#services"><span>✦</span> Dịch vụ</a>
+      <a href="#music"><span>♫</span> Nhạc của mình</a>
+      <a href="#upload"><span>▧</span> Ảnh & tệp của mình</a>
+      <a href="#contact"><span>✉</span> Liên hệ</a>
+    </nav>
+    <div class="sidebar-bottom"><p>“Làm những điều mình thích, đó là tự do.”</p><div class="signature">— WusBaoNam —</div></div>
+  </aside>
+
+  <main class="main" id="home">
+    <header class="topbar">
+      <div><div class="eyebrow">MY SPACE / 2026</div><h2>Chào mừng đến với thế giới của mình.</h2></div>
+      <div class="status">Personal website</div>
+    </header>
+
+    <section class="card profile-card" aria-label="Hồ sơ cá nhân">
+      <div class="cover">
+        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1400&auto=format&fit=crop" alt="Ảnh bìa thành phố về đêm" onerror="this.style.display='none'">
+        <div class="cover-copy">Better Version<br>Of Myself.</div>
+        <div class="cover-badge">✦ PERSONAL PROFILE</div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row">
+          <div class="avatar-wrap" id="avatarClick" title="Bấm để xem ảnh lớn">
+            <img class="avatar" id="avatarImage" src="https://i.pravatar.cc/300?img=11" alt="Ảnh đại diện">
+            <span class="avatar-edit">↗</span>
+          </div>
+          <div class="profile-details">
+            <div class="name-line"><h1>WusBaoNam</h1><span class="verified" title="Hồ sơ cá nhân">✦</span></div>
+            <div class="handle">@used222999</div>
+          </div>
+        </div>
+        <p class="bio">Chào mừng đến với không gian của mình!<br>Đam mê công nghệ, thiết kế, âm nhạc và những điều mới mẻ.</p>
+        <div class="tags"><span class="tag">⌘ Tech</span><span class="tag">✧ Design</span><span class="tag">♫ Music</span><span class="tag">🎮 Gaming</span></div>
+        <div class="profile-actions" style="margin-top:16px">
+          <a class="btn btn-primary" href="https://www.tiktok.com/@used222999" target="_blank" rel="noopener noreferrer">♪ Theo dõi TikTok ↗</a>
+          <a class="btn" href="#contact">✉ Liên hệ với mình</a>
+          <label class="btn" for="avatarPicker">▧ Đổi avatar<input id="avatarPicker" type="file" accept="image/*" hidden></label>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>12</strong><span>Bài viết</span></div>
+          <div class="stat"><strong>1.2k</strong><span>Người theo dõi</span></div>
+          <div class="stat"><strong>15</strong><span>Đang theo dõi</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-head"><div><h2>✦ Sản phẩm / Dịch vụ</h2><p>Một vài thứ mình có thể giúp bạn.</p></div><button class="text-link" id="showAllServices">Xem tất cả ↗</button></div>
+      <div class="products">
+        <article class="product">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=700&q=85" alt="Thiết kế website" loading="lazy"><span class="product-icon">💻</span></div>
+          <div class="product-content"><h3>Thiết kế Website</h3><p>Website cá nhân, landing page, portfolio và trang giới thiệu.</p><button class="btn detail-btn" data-service="web">Xem chi tiết ↗</button></div>
+        </article>
+        <article class="product">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?w=700&q=85" alt="Chỉnh sửa video" loading="lazy"><span class="product-icon">🎬</span></div>
+          <div class="product-content"><h3>Edit Video</h3><p>Chỉnh sửa video ngắn, hiệu ứng và chuyển cảnh phù hợp nội dung.</p><button class="btn detail-btn" data-service="video">Xem chi tiết ↗</button></div>
+        </article>
+        <article class="product">
+          <div class="product-image"><img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=700&q=85" alt="Máy tính và laptop" loading="lazy"><span class="product-icon">🖥️</span></div>
+          <div class="product-content"><h3>Hỗ trợ PC / Laptop</h3><p>Hỗ trợ cài đặt phần mềm, thiết lập cơ bản và xử lý lỗi thông dụng.</p><button class="btn detail-btn" data-service="pc">Xem chi tiết ↗</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="card inbox section" id="contact">
+      <div class="inbox-intro"><div class="big-icon">💬</div><h3>Có ý tưởng muốn thực hiện?</h3><p>Gửi lời nhắn cho mình. Nội dung sẽ được chuẩn bị để bạn sao chép trước khi mở TikTok liên hệ.</p><ul class="benefits"><li>Trao đổi rõ ràng</li><li>Thống nhất yêu cầu trước</li><li>Phản hồi khi có thể</li></ul></div>
+      <form class="form" id="contactForm">
+        <div class="field"><label for="visitorName">Tên của bạn (không bắt buộc)</label><input id="visitorName" type="text" maxlength="60" placeholder="Bạn muốn mình gọi là gì?"></div>
+        <div class="field"><label for="visitorMessage">Nội dung tin nhắn</label><textarea id="visitorMessage" maxlength="1000" required placeholder="Ví dụ: Mình muốn làm một website cá nhân..."></textarea></div>
+        <button class="btn btn-primary" type="submit">✉ Chuẩn bị tin nhắn TikTok ↗</button>
+        <p class="form-note">Trang web không tự gửi tin nhắn. Tin nhắn sẽ được sao chép nếu trình duyệt cho phép; bạn cần gửi trực tiếp trên TikTok.</p>
+      </form>
+    </section>
+    <div class="footer">Made with ♥ by WusBaoNam · Một góc nhỏ trên internet.</div>
+  </main>
+
+  <aside class="right">
+    <section class="panel" id="music">
+      <div class="panel-head"><h3>♫ Now Playing</h3><span class="mini-label">MUSIC PLAYER</span></div>
+      <div class="now-playing">
+        <img class="album" id="albumCover" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&q=80" alt="Ảnh bìa nhạc">
+        <div class="track-info"><h4 id="trackTitle">Chưa chọn bài hát</h4><p id="trackArtist">Playlist của Nam</p><div class="playing-state" id="playState">Chọn file nhạc để bắt đầu</div></div>
+      </div>
+      <div class="progress-wrap"><input class="progress" id="seekBar" type="range" min="0" max="100" value="0" aria-label="Tua nhạc"><div class="times"><span id="currentTime">00:00</span><span id="duration">00:00</span></div></div>
+      <div class="controls">
+        <button class="icon-btn" id="prevTrack" title="Bài trước" aria-label="Bài trước">⏮</button>
+        <button class="play-btn" id="playPause" title="Phát nhạc" aria-label="Phát nhạc">▶</button>
+        <button class="icon-btn" id="nextTrack" title="Bài tiếp theo" aria-label="Bài tiếp theo">⏭</button>
+      </div>
+      <div class="volume-row"><span>🔉</span><input id="volume" type="range" min="0" max="1" step=".01" value=".8" aria-label="Âm lượng"><span>🔊</span></div>
+      <div class="playlist" id="playlist"><div class="form-note">Chưa có bài hát. Mở mục Upload bên dưới để chọn file MP3, M4A, WAV… từ thiết bị.</div></div>
+      <audio id="audioPlayer" preload="metadata"></audio>
+    </section>
+
+    <section class="panel" id="upload">
+      <div class="panel-head"><h3>☁ Tệp của bạn</h3><span class="mini-label">LOCAL</span></div>
+      <div class="upload-tabs"><button class="tab active" data-tab="images">Ảnh</button><button class="tab" data-tab="audio">Nhạc</button></div>
+      <label class="upload-box" id="imageUploadBox"><input id="imagePicker" type="file" accept="image/*" multiple><div class="upload-icon">▧</div><strong>Chọn ảnh từ thiết bị</strong><span>JPG, PNG, WEBP…<br>Ảnh chỉ hiện trong phiên này.</span></label>
+      <label class="upload-box" id="audioUploadBox" hidden><input id="audioPicker" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac" multiple><div class="upload-icon">♫</div><strong>Chọn nhạc từ thiết bị</strong><span>MP3, M4A, WAV, OGG…<br>Chọn nhiều bài để tạo playlist.</span></label>
+      <div class="upload-preview" id="uploadPreview"></div>
+    </section>
+  </aside>
+</div>
+
+<nav class="mobile-nav" aria-label="Điều hướng nhanh">
+  <a class="active" href="#home"><span>⌂</span>Trang chủ</a>
+  <a href="#services"><span>✦</span>Dịch vụ</a>
+  <a href="#music"><span>♫</span>Nhạc</a>
+  <a href="#upload"><span>▧</span>Tệp</a>
+  <a href="#contact"><span>✉</span>Liên hệ</a>
+</nav>
+
+<div class="modal" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card"><div class="modal-top"><h3 id="modalTitle">Thông tin dịch vụ</h3><button class="close-modal" id="closeModal" aria-label="Đóng">✕</button></div><p id="modalText"></p><div class="modal-actions"><button class="btn btn-primary" id="askService">Hỏi về dịch vụ này ↗</button><button class="btn" id="closeModal2">Đóng</button></div></div>
+</div>
+<div class="lightbox" id="lightbox" aria-label="Xem ảnh lớn"><img id="lightboxImage" alt="Ảnh xem lớn"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const toast = (message) => {
+    const el = $('#toast'); el.textContent = message; el.classList.add('show');
+    clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove('show'), 2600);
+  };
+
+  // Điều hướng và trạng thái mục đang xem
+  const navLinks = $$('.nav a, .mobile-nav a');
+  navLinks.forEach(link => link.addEventListener('click', () => {
+    navLinks.forEach(item => item.classList.toggle('active', item.getAttribute('href') === link.getAttribute('href')));
+  }));
+  const sections = ['home','services','music','upload','contact'].map(id => document.getElementById(id)).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio-a.intersectionRatio)[0];
+      if (visible) navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + visible.target.id));
+    }, {rootMargin:'-20% 0px -60% 0px', threshold:[0,.15,.4]});
+    sections.forEach(section => observer.observe(section));
+  }
+
+  // Avatar đổi ảnh và xem ảnh lớn
+  let avatarObjectUrl = null;
+  $('#avatarPicker').addEventListener('change', e => {
+    const file = e.target.files?.[0]; if (!file) return;
+    if (!file.type.startsWith('image/')) return toast('Hãy chọn một file ảnh hợp lệ.');
+    if (avatarObjectUrl) URL.revokeObjectURL(avatarObjectUrl);
+    avatarObjectUrl = URL.createObjectURL(file);
+    $('#avatarImage').src = avatarObjectUrl;
+    toast('Đã đổi avatar trong phiên hiện tại.');
+    e.target.value = '';
+  });
+  const lightbox = $('#lightbox');
+  function showLightbox(src) { $('#lightboxImage').src = src; lightbox.classList.add('open'); }
+  $('#avatarClick').addEventListener('click', () => showLightbox($('#avatarImage').src));
+  lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { lightbox.classList.remove('open'); closeModal(); } });
+
+  // Chi tiết dịch vụ
+  const serviceData = {
+    web:{title:'Thiết kế Website',text:'Phù hợp với website cá nhân, trang giới thiệu, portfolio hoặc landing page đơn giản.\\n\\nCó thể trao đổi về màu sắc, bố cục, nội dung và khả năng hiển thị trên điện thoại. Chi phí và thời gian thực hiện cần thống nhất theo yêu cầu cụ thể.'},
+    video:{title:'Chỉnh sửa Video',text:'Hỗ trợ định hướng video ngắn, cắt ghép, thêm chữ, nhạc và hiệu ứng chuyển cảnh cơ bản.\\n\\nBạn nên gửi mẫu tham khảo, độ dài video và phong cách mong muốn để hai bên trao đổi trước.'},
+    pc:{title:'Hỗ trợ PC / Laptop',text:'Hỗ trợ hướng dẫn cài đặt phần mềm thông dụng, thiết lập máy tính và xử lý một số lỗi cơ bản.\\n\\nKhông yêu cầu gửi mật khẩu hay thông tin cá nhân nhạy cảm. Tình trạng máy và công việc cụ thể sẽ được trao đổi trước.'}
+  };
+  const modal = $('#serviceModal'); let selectedService = '';
+  function openModal(key) { const item=serviceData[key]; if(!item)return; selectedService=key; $('#modalTitle').textContent=item.title; $('#modalText').textContent=item.text.replace(/\\n/g,'\n'); modal.classList.add('open'); }
+  function closeModal(){modal.classList.remove('open');}
+  $$('.detail-btn').forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.service)));
+  $('#showAllServices').addEventListener('click', () => { $('#services').scrollIntoView({behavior:'smooth'}); toast('Đang hiển thị các dịch vụ hiện có.'); });
+  $('#closeModal').addEventListener('click',closeModal); $('#closeModal2').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  $('#askService').addEventListener('click',()=>{const title=serviceData[selectedService]?.title||'dịch vụ';closeModal();$('#visitorMessage').value='Mình muốn hỏi thêm về dịch vụ: '+title+'.';$('#contact').scrollIntoView({behavior:'smooth'});$('#visitorMessage').focus({preventScroll:true});});
+
+  // Form: copy nội dung rồi mở trang TikTok; không giả vờ tự gửi tin nhắn.
+  $('#contactForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name=$('#visitorName').value.trim();
+    const message=$('#visitorMessage').value.trim();
+    if(!message) return toast('Bạn hãy nhập nội dung tin nhắn trước nhé.');
+    const prepared=(name ? 'Xin chào, mình là '+name+'.\n' : '')+message;
+    let copied=false;
+    try { if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(prepared);copied=true;} }
+    catch(_) {}
+    if(!copied){
+      const temp=document.createElement('textarea');temp.value=prepared;temp.style.position='fixed';temp.style.opacity='0';document.body.appendChild(temp);temp.select();
+      try{copied=document.execCommand('copy');}catch(_){}
+      temp.remove();
+    }
+    if(copied) toast('Đã sao chép nội dung. TikTok sẽ mở ở tab mới.');
+    else toast('TikTok sẽ mở; hãy sao chép nội dung tin nhắn thủ công.');
+    window.open('https://www.tiktok.com/@used222999','_blank','noopener,noreferrer');
+  });
+
+  // Upload ảnh: xem trước trong trình duyệt, không tải lên máy chủ.
+  let imageUrls=[];
+  $('#imagePicker').addEventListener('change', e=>{
+    const files=[...e.target.files].filter(f=>f.type.startsWith('image/'));
+    if(!files.length)return toast('Không tìm thấy file ảnh hợp lệ.');
+    files.forEach(file=>{
+      if(file.size>15*1024*1024){toast('Bỏ qua ảnh trên 15 MB: '+file.name);return;}
+      const url=URL.createObjectURL(file); imageUrls.push(url);
+      const img=document.createElement('img');img.src=url;img.alt=file.name;img.title=file.name;img.addEventListener('click',()=>showLightbox(url));$('#uploadPreview').appendChild(img);
+    });
+    toast('Đã thêm ảnh xem trước.');
+    e.target.value='';
+  });
+  $$('.tab').forEach(tab=>tab.addEventListener('click',()=>{
+    $$('.tab').forEach(t=>t.classList.toggle('active',t===tab));
+    const isImage=tab.dataset.tab==='images';
+    $('#imageUploadBox').hidden=!isImage;$('#audioUploadBox').hidden=isImage;
+    $('#uploadPreview').querySelectorAll('audio').forEach(a=>a.hidden=isImage);
+  }));
+
+  // Music player: người dùng tự chọn file âm thanh từ thiết bị.
+  const audio=$('#audioPlayer'); const songs=[]; let current=-1; let audioUrls=[];
+  const fallbackCover='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&q=80';
+  const fmt = sec => {if(!Number.isFinite(sec)||sec<0)return '00:00';const m=Math.floor(sec/60),s=Math.floor(sec%60);return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');};
+  function renderPlaylist(){
+    const list=$('#playlist');list.replaceChildren();
+    if(!songs.length){const p=document.createElement('div');p.className='form-note';p.textContent='Chưa có bài hát. Mở mục Upload bên dưới để chọn file nhạc từ thiết bị.';list.appendChild(p);return;}
+    songs.forEach((song,i)=>{
+      const btn=document.createElement('button');btn.className='song'+(i===current?' active':'');btn.type='button';
+      const img=document.createElement('img');img.src=fallbackCover;img.alt='';
+      const meta=document.createElement('span');meta.className='song-meta';
+      const title=document.createElement('strong');title.textContent=song.name;
+      const sub=document.createElement('span');sub.textContent='Tệp trên thiết bị';
+      meta.append(title,sub);const mark=document.createElement('span');mark.className='song-mark';mark.textContent=i===current&&!audio.paused?'♫':'▶';
+      btn.append(img,meta,mark);btn.addEventListener('click',()=>loadSong(i,true));list.appendChild(btn);
+    });
+  }
+  function loadSong(index,autoplay=false){
+    if(!songs.length)return toast('Hãy chọn file nhạc ở mục Upload trước.');
+    current=(index+songs.length)%songs.length;
+    audio.src=songs[current].url;$('#trackTitle').textContent=songs[current].name;$('#trackArtist').textContent='Tệp nhạc trên thiết bị';$('#albumCover').src=fallbackCover;
+    $('#seekBar').value=0;$('#currentTime').textContent='00:00';$('#duration').textContent='00:00';
+    renderPlaylist();
+    if(autoplay) audio.play().then(()=>{updatePlayButton();}).catch(()=>{updatePlayButton();toast('Không phát được file này. Hãy thử file âm thanh khác.');});
+    else updatePlayButton();
+  }
+  function updatePlayButton(){$('#playPause').textContent=audio.paused?'▶':'Ⅱ';$('#playPause').title=audio.paused?'Phát nhạc':'Tạm dừng';$('#playState').textContent=audio.paused?'Đang tạm dừng':'Đang phát';renderPlaylist();}
+  $('#audioPicker').addEventListener('change',e=>{
+    const files=[...e.target.files].filter(f=>f.type.startsWith('audio/')||/\.(mp3|m4a|wav|ogg|aac|flac)$/i.test(f.name));
+    if(!files.length)return toast('Hãy chọn file âm thanh hợp lệ.');
+    files.forEach(file=>{const url=URL.createObjectURL(file);audioUrls.push(url);songs.push({name:file.name.replace(/\.[^.]+$/,''),url});});
+    renderPlaylist();
+    const preview=$('#uploadPreview');
+    const player=document.createElement('audio');player.controls=true;player.src=songs[songs.length-files.length].url;player.style.width='100%';player.style.gridColumn='1/-1';player.style.marginTop='5px';preview.appendChild(player);
+    loadSong(songs.length-files.length,true);toast('Đã thêm '+files.length+' bài vào playlist.');
+    e.target.value='';
+  });
+  $('#playPause').addEventListener('click',()=>{
+    if(current<0){if(songs.length)loadSong(0,true);else toast('Chọn file nhạc ở mục Upload để nghe nhé.');return;}
+    if(audio.paused)audio.play().then(updatePlayButton).catch(()=>toast('Trình duyệt không phát được file này.'));
+    else {audio.pause();updatePlayButton();}
+  });
+  $('#prevTrack').addEventListener('click',()=>{if(!songs.length)return toast('Playlist chưa có bài hát.');if(audio.currentTime>3){audio.currentTime=0;}else loadSong(current-1,true);});
+  $('#nextTrack').addEventListener('click',()=>{if(!songs.length)return toast('Playlist chưa có bài hát.');loadSong(current+1,true);});
+  $('#volume').addEventListener('input',e=>audio.volume=Number(e.target.value));audio.volume=.8;
+  audio.addEventListener('loadedmetadata',()=>{$('#duration').textContent=fmt(audio.duration);});
+  audio.addEventListener('timeupdate',()=>{if(Number.isFinite(audio.duration)&&audio.duration>0){$('#seekBar').value=audio.currentTime/audio.duration*100;$('#currentTime').textContent=fmt(audio.currentTime);}});
+  $('#seekBar').addEventListener('input',e=>{if(Number.isFinite(audio.duration)&&audio.duration>0)audio.currentTime=Number(e.target.value)/100*audio.duration;});
+  audio.addEventListener('play',updatePlayButton);audio.addEventListener('pause',updatePlayButton);
+  audio.addEventListener('ended',()=>{if(songs.length>1)loadSong(current+1,true);else updatePlayButton();});
+  audio.addEventListener('error',()=>{if(current>=0)$('#playState').textContent='Không thể phát file này';});
+})();
+</script>
+</body>
+</html>
