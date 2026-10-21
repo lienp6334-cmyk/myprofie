@@ -161,8 +161,8 @@ button,input,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transpa
     <nav class="nav" aria-label="Điều hướng chính">
       <a class="active" href="#home"><span>⌂</span> Trang chủ</a>
       <a href="#services"><span>✦</span> Dịch vụ</a>
-      <a href="#music"><span>♫</span> Nhạc của mình</a>
-      <a href="#upload"><span>▧</span> Ảnh & tệp của mình</a>
+      <a href="#music"><span>♫</span> Nhạc</a>
+      <a href="#upload"><span>▧</span> Ảnh & tệp </a>
       <a href="#contact"><span>✉</span> Liên hệ</a>
     </nav>
     <div class="sidebar-bottom"><p>“Làm những điều mình thích, đó là tự do.”</p><div class="signature">— WusBaoNam —</div></div>
@@ -210,15 +210,15 @@ button,input,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transpa
       <div class="section-head"><div><h2>✦ Sản phẩm / Dịch vụ</h2><p>Một vài thứ mình có thể giúp bạn.</p></div><button class="text-link" id="showAllServices">Xem tất cả ↗</button></div>
       <div class="products">
         <article class="product">
-          <div class="product-image"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=700&q=85" alt="Thiết kế website" loading="lazy"><span class="product-icon">💻</span></div>
+          <div class="product-image"><img src="assets/abc.jpg" alt="Thiết kế website" loading="lazy"><span class="product-icon">💻</span></div>
           <div class="product-content"><h3>Thiết kế Website</h3><p>Website cá nhân, landing page, portfolio và trang giới thiệu.</p><button class="btn detail-btn" data-service="web">Xem chi tiết ↗</button></div>
         </article>
         <article class="product">
-          <div class="product-image"><img src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?w=700&q=85" alt="Chỉnh sửa video" loading="lazy"><span class="product-icon">🎬</span></div>
+          <div class="product-image"><img src="assets/bbf.jpg" alt="Chỉnh sửa video" loading="lazy"><span class="product-icon">☠</span></div>
           <div class="product-content"><h3>Crack App - Game </h3><p>Hack Game.</p><button class="btn detail-btn" data-service="video">Xem chi tiết ↗</button></div>
         </article>
         <article class="product">
-          <div class="product-image"><img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=700&q=85" alt="Máy tính và laptop" loading="lazy"><span class="product-icon">🖥️</span></div>
+          <div class="product-image"><img src="assets/cde.jpg" alt="Máy tính và laptop" loading="lazy"><span class="product-icon">🖥️</span></div>
           <div class="product-content"><h3>Code dark tool ✦</h3><p>Hỗ trợ cài đặt phần mềm.</p><button class="btn detail-btn" data-service="pc">Xem chi tiết ↗</button></div>
         </article>
       </div>
@@ -321,8 +321,8 @@ button,input,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transpa
   // Chi tiết dịch vụ
   const serviceData = {
     web:{title:'Thiết kế Website',text:'Phù hợp với website cá nhân, trang giới thiệu, portfolio hoặc landing page đơn giản.\\n\\nCó thể trao đổi về màu sắc, bố cục, nội dung và khả năng hiển thị trên điện thoại. Chi phí và thời gian thực hiện cần thống nhất theo yêu cầu cụ thể.'},
-    video:{title:'Chỉnh sửa Video',text:'Hỗ trợ định hướng video ngắn, cắt ghép, thêm chữ, nhạc và hiệu ứng chuyển cảnh cơ bản.\\n\\nBạn nên gửi mẫu tham khảo, độ dài video và phong cách mong muốn để hai bên trao đổi trước.'},
-    pc:{title:'Hỗ trợ PC / Laptop',text:'Hỗ trợ hướng dẫn cài đặt phần mềm thông dụng, thiết lập máy tính và xử lý một số lỗi cơ bản.\\n\\nKhông yêu cầu gửi mật khẩu hay thông tin cá nhân nhạy cảm. Tình trạng máy và công việc cụ thể sẽ được trao đổi trước.'}
+    video:{title:'crack-app',text:'Crack all app.\\n\\nBạn nên gửi mẫu tham khảo, hai bên trao đổi trước.'},
+    pc:{title:'Code dark tool ✦',text:'Hỗ trợ hướng dẫn cài đặt phần mềm thông dụng, thiết lập máy tính và xử lý một số lỗi cơ bản.\\n\\nKhông yêu cầu gửi mật khẩu hay thông tin cá nhân nhạy cảm. Tình trạng máy và công việc cụ thể sẽ được trao đổi trước.'}
   };
   const modal = $('#serviceModal'); let selectedService = '';
   function openModal(key) { const item=serviceData[key]; if(!item)return; selectedService=key; $('#modalTitle').textContent=item.title; $('#modalText').textContent=item.text.replace(/\\n/g,'\n'); modal.classList.add('open'); }
